@@ -2,7 +2,11 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 
 from finetuner import Finetuner
-
+"""
+1. 一个GPU可以同时跑多个程序/模型，且互相不影响（实验结果仍然一致），只要有显存
+2. 可以使用MirroredStrategy使模型在多个GPU上同时跑，同时可以开多程序
+3. 使用set_visible_devices来指定GPU
+"""
 if __name__ == '__main__':
     # import os
     # print(os.environ)
@@ -21,12 +25,14 @@ if __name__ == '__main__':
     # print("Valid set size: ", len(valid_set))
     # print("Test set size: ", len(test_set))
     # print(ds_info.features["label"].num_classes)
-    strategy = tf.distribute.MirroredStrategy(
-        devices=["/physical_device:GPU:1", "/physical_device:GPU:2","/physical_device:GPU:3","/physical_device:GPU:4","/physical_device:GPU:5","/physical_device:GPU:6","/physical_device:GPU:7", ])
-    with strategy.scope():
-        gpus = tf.config.experimental.list_physical_devices(device_type='GPU')
-        print(gpus)
-        for gpu in gpus:
-            tf.config.experimental.set_memory_growth(gpu, True)
-        finetuner = Finetuner()
-        finetuner.finetune(dataset="cifar100",epochs=20,batch_size=16,split=split)
+    gpus = tf.config.experimental.list_physical_devices(device_type='GPU')
+    print(gpus)
+    tf.config.set_visible_devices(devices=gpus[2], device_type='GPU')
+    for gpu in gpus:
+        tf.config.experimental.set_memory_growth(gpu, True)
+
+    # strategy = tf.distribute.MirroredStrategy(
+    #     devices=["/physical_device:GPU:1", "/physical_device:GPU:2","/physical_device:GPU:3","/physical_device:GPU:4","/physical_device:GPU:5","/physical_device:GPU:6","/physical_device:GPU:7", ])
+    # with strategy.scope():
+    finetuner = Finetuner()
+    finetuner.finetune(dataset="cifar100",epochs=20,batch_size=16,split=split)
