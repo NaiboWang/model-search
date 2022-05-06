@@ -1,0 +1,446 @@
+2022-05-06 15:36:54.265 | INFO     | finetuner:finetune:231 - Reshaping images to [224, 224]
+2022-05-06 15:36:54.894 | INFO     | finetuner:visualize_preprocessed_samples:145 - preprocessed_sample:(<tf.Tensor: shape=(224, 224, 3), dtype=float32, numpy=
+array([[[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       ...,
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]]], dtype=float32)>, <tf.Tensor: shape=(), dtype=int64, numpy=57>)
+2022-05-06 15:37:01.332 | INFO     | finetuner:finetune:310 - None
+2022-05-06 15:37:20.464 | INFO     | finetuner:finetune:324 - eval_loss, eval_acc of test set of transfer learning (before): 5.509797096252441, 0.008200000040233135
+2022-05-06 15:37:21.105 | INFO     | finetuner:finetune:328 - eval_loss, eval_acc of validation set of transfer learning (before): 5.517967700958252, 0.019999999552965164
+2022-05-06 15:37:21.885 | INFO     | finetuner:finetune:332 - eval_loss, eval_acc of training set of transfer learning (before): 5.543045520782471, 0.007499999832361937
+2022-05-06 15:37:51.861 | INFO     | finetuner:finetune:343 - eval_loss, eval_acc of test set of transfer learning (after): 2.9031405448913574, 0.30169999599456787
+2022-05-06 15:37:52.081 | INFO     | finetuner:finetune:347 - eval_loss, eval_acc of validation set of transfer learning (after): 2.8416225910186768, 0.27000001072883606
+2022-05-06 15:37:52.719 | INFO     | finetuner:finetune:351 - eval_loss, eval_acc of training set of transfer learning (after): 0.1049782782793045, 1.0
+2022-05-06 15:37:58.992 | INFO     | finetuner:finetune:370 - None
+2022-05-06 15:38:10.325 | INFO     | finetuner:finetune:383 - eval_loss, eval_acc of test set of finetune (before): 5.580471515655518, 0.008500000461935997
+2022-05-06 15:38:10.559 | INFO     | finetuner:finetune:387 - eval_loss, eval_acc of validation set of finetune (before): 5.5355048179626465, 0.0
+2022-05-06 15:38:11.200 | INFO     | finetuner:finetune:391 - eval_loss, eval_acc of training set of finetune (before): 5.531165599822998, 0.012500000186264515
+2022-05-06 15:39:11.842 | INFO     | finetuner:finetune:402 - eval_loss, eval_acc of test set of finetune (after): 5.596149444580078, 0.07689999788999557
+2022-05-06 15:39:12.060 | INFO     | finetuner:finetune:406 - eval_loss, eval_acc of validation set of finetune (after): 5.567302227020264, 0.05999999865889549
+2022-05-06 15:39:12.635 | INFO     | finetuner:finetune:410 - eval_loss, eval_acc of training set of finetune (after): 0.29268723726272583, 0.9449999928474426
+2022-05-06 15:39:12.636 | INFO     | finetuner:finetune:417 - Saving to .../home/naibo/exps/model-search/models/finetuned/test
+2022-05-06 15:47:06.961 | INFO     | finetuner:finetune:234 - Reshaping images to [224, 224]
+2022-05-06 15:47:07.583 | INFO     | finetuner:visualize_preprocessed_samples:148 - preprocessed_sample:(<tf.Tensor: shape=(224, 224, 3), dtype=float32, numpy=
+array([[[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       ...,
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]]], dtype=float32)>, <tf.Tensor: shape=(), dtype=int64, numpy=57>)
+2022-05-06 15:47:14.184 | INFO     | finetuner:finetune:313 - None
+2022-05-06 15:47:32.925 | INFO     | finetuner:finetune:327 - eval_loss, eval_acc of test set of transfer learning (before): 5.679647445678711, 0.008999999612569809
+2022-05-06 15:47:33.495 | INFO     | finetuner:finetune:331 - eval_loss, eval_acc of validation set of transfer learning (before): 5.655331611633301, 0.009999999776482582
+2022-05-06 15:47:34.281 | INFO     | finetuner:finetune:335 - eval_loss, eval_acc of training set of transfer learning (before): 5.525457859039307, 0.02500000037252903
+2022-05-06 15:48:03.271 | INFO     | finetuner:finetune:348 - eval_loss, eval_acc of test set of transfer learning (after): 2.925687313079834, 0.303600013256073
+2022-05-06 15:48:03.488 | INFO     | finetuner:finetune:352 - eval_loss, eval_acc of validation set of transfer learning (after): 2.8554675579071045, 0.30000001192092896
+2022-05-06 15:48:04.089 | INFO     | finetuner:finetune:356 - eval_loss, eval_acc of training set of transfer learning (after): 0.10233192145824432, 1.0
+2022-05-06 15:48:10.057 | INFO     | finetuner:finetune:375 - None
+2022-05-06 15:48:21.217 | INFO     | finetuner:finetune:388 - eval_loss, eval_acc of test set of finetune (before): 5.615143299102783, 0.007499999832361937
+2022-05-06 15:48:21.427 | INFO     | finetuner:finetune:392 - eval_loss, eval_acc of validation set of finetune (before): 5.639720439910889, 0.0
+2022-05-06 15:48:22.065 | INFO     | finetuner:finetune:396 - eval_loss, eval_acc of training set of finetune (before): 5.585787296295166, 0.007499999832361937
+2022-05-06 15:49:19.496 | INFO     | finetuner:finetune:408 - eval_loss, eval_acc of test set of finetune (after): 5.647656440734863, 0.0746999979019165
+2022-05-06 15:49:19.733 | INFO     | finetuner:finetune:412 - eval_loss, eval_acc of validation set of finetune (after): 5.591766357421875, 0.07000000029802322
+2022-05-06 15:49:20.344 | INFO     | finetuner:finetune:416 - eval_loss, eval_acc of training set of finetune (after): 0.37468022108078003, 0.925000011920929
+2022-05-06 15:49:20.346 | INFO     | finetuner:finetune:423 - Saving to .../home/naibo/exps/model-search/models/finetuned/test
+2022-05-06 15:53:53.285 | INFO     | finetuner:finetune:234 - Reshaping images to [224, 224]
+2022-05-06 15:54:20.145 | INFO     | finetuner:visualize_preprocessed_samples:148 - preprocessed_sample:(<tf.Tensor: shape=(224, 224, 3), dtype=float32, numpy=
+array([[[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       ...,
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]]], dtype=float32)>, <tf.Tensor: shape=(), dtype=int64, numpy=57>)
+2022-05-06 15:54:37.204 | INFO     | finetuner:finetune:313 - None
+2022-05-06 15:54:56.068 | INFO     | finetuner:finetune:327 - eval_loss, eval_acc of test set of transfer learning (before): 5.392693042755127, 0.006599999964237213
+2022-05-06 15:55:10.999 | INFO     | finetuner:finetune:331 - eval_loss, eval_acc of validation set of transfer learning (before): 5.385079860687256, 0.00800000037997961
+2022-05-06 15:56:00.261 | INFO     | finetuner:finetune:335 - eval_loss, eval_acc of training set of transfer learning (before): 5.378904819488525, 0.006500000134110451
+2022-05-06 16:28:24.314 | INFO     | finetuner:finetune:348 - eval_loss, eval_acc of test set of transfer learning (after): 1.4235583543777466, 0.6518999934196472
+2022-05-06 16:28:35.107 | INFO     | finetuner:finetune:352 - eval_loss, eval_acc of validation set of transfer learning (after): 1.3777395486831665, 0.6567000150680542
+2022-05-06 16:29:22.719 | INFO     | finetuner:finetune:356 - eval_loss, eval_acc of training set of transfer learning (after): 0.7742372155189514, 0.7664999961853027
+2022-05-06 16:29:28.761 | INFO     | finetuner:finetune:375 - None
+2022-05-06 16:29:40.506 | INFO     | finetuner:finetune:388 - eval_loss, eval_acc of test set of finetune (before): 5.443578720092773, 0.011800000444054604
+2022-05-06 16:29:51.606 | INFO     | finetuner:finetune:392 - eval_loss, eval_acc of validation set of finetune (before): 5.470775604248047, 0.010499999858438969
+2022-05-06 16:30:40.903 | INFO     | finetuner:finetune:396 - eval_loss, eval_acc of training set of finetune (before): 5.453145503997803, 0.010250000283122063
+2022-05-06 17:58:16.381 | INFO     | finetuner:finetune:408 - eval_loss, eval_acc of test set of finetune (after): 2.38249135017395, 0.6043000221252441
+2022-05-06 17:58:39.877 | INFO     | finetuner:finetune:412 - eval_loss, eval_acc of validation set of finetune (after): 2.3476006984710693, 0.6031000018119812
+2022-05-06 18:00:22.092 | INFO     | finetuner:finetune:416 - eval_loss, eval_acc of training set of finetune (after): 0.28948894143104553, 0.9104250073432922
+2022-05-06 18:00:22.093 | INFO     | finetuner:finetune:423 - Saving to .../home/naibo/exps/model-search/models/finetuned/test
+2022-05-06 23:38:17.463 | INFO     | finetuner:finetune:234 - Reshaping images to [224, 224]
+2022-05-06 23:38:18.758 | INFO     | finetuner:visualize_preprocessed_samples:148 - preprocessed_sample:(<tf.Tensor: shape=(224, 224, 3), dtype=float32, numpy=
+array([[[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       ...,
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]]], dtype=float32)>, <tf.Tensor: shape=(), dtype=int64, numpy=57>)
+2022-05-06 23:38:24.231 | INFO     | finetuner:finetune:234 - Reshaping images to [224, 224]
+2022-05-06 23:38:25.732 | INFO     | finetuner:visualize_preprocessed_samples:148 - preprocessed_sample:(<tf.Tensor: shape=(224, 224, 3), dtype=float32, numpy=
+array([[[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       ...,
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]]], dtype=float32)>, <tf.Tensor: shape=(), dtype=int64, numpy=57>)
+2022-05-06 23:38:30.003 | INFO     | finetuner:finetune:234 - Reshaping images to [224, 224]
+2022-05-06 23:38:31.307 | INFO     | finetuner:visualize_preprocessed_samples:148 - preprocessed_sample:(<tf.Tensor: shape=(224, 224, 3), dtype=float32, numpy=
+array([[[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       ...,
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]]], dtype=float32)>, <tf.Tensor: shape=(), dtype=int64, numpy=57>)
+2022-05-06 23:38:37.480 | INFO     | finetuner:finetune:234 - Reshaping images to [224, 224]
+2022-05-06 23:38:38.737 | INFO     | finetuner:visualize_preprocessed_samples:148 - preprocessed_sample:(<tf.Tensor: shape=(224, 224, 3), dtype=float32, numpy=
+array([[[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       ...,
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]]], dtype=float32)>, <tf.Tensor: shape=(), dtype=int64, numpy=57>)
+2022-05-06 23:38:52.273 | INFO     | finetuner:finetune:313 - None
+2022-05-06 23:38:53.073 | INFO     | finetuner:finetune:313 - None
+2022-05-06 23:38:54.052 | INFO     | finetuner:finetune:313 - None
+2022-05-06 23:38:54.465 | INFO     | finetuner:finetune:313 - None
+2022-05-06 23:39:14.774 | INFO     | finetuner:finetune:327 - eval_loss, eval_acc of test set of transfer learning (before): 5.526139259338379, 0.009200000204145908
+2022-05-06 23:39:14.890 | INFO     | finetuner:finetune:327 - eval_loss, eval_acc of test set of transfer learning (before): 5.302988052368164, 0.01489999983459711
+2022-05-06 23:39:17.964 | INFO     | finetuner:finetune:327 - eval_loss, eval_acc of test set of transfer learning (before): 5.5450921058654785, 0.007799999788403511
+2022-05-06 23:39:18.252 | INFO     | finetuner:finetune:327 - eval_loss, eval_acc of test set of transfer learning (before): 5.6217451095581055, 0.006500000134110451
+2022-05-06 23:39:36.582 | INFO     | finetuner:finetune:331 - eval_loss, eval_acc of validation set of transfer learning (before): 5.5377631187438965, 0.011699999682605267
+2022-05-06 23:39:36.916 | INFO     | finetuner:finetune:331 - eval_loss, eval_acc of validation set of transfer learning (before): 5.2888007164001465, 0.014700000174343586
+2022-05-06 23:39:38.940 | INFO     | finetuner:finetune:331 - eval_loss, eval_acc of validation set of transfer learning (before): 5.5434370040893555, 0.008100000210106373
+2022-05-06 23:39:39.257 | INFO     | finetuner:finetune:331 - eval_loss, eval_acc of validation set of transfer learning (before): 5.612227439880371, 0.0066999997943639755
+2022-05-06 23:40:47.269 | INFO     | finetuner:finetune:335 - eval_loss, eval_acc of training set of transfer learning (before): 5.517987251281738, 0.009674999862909317
+2022-05-06 23:40:47.493 | INFO     | finetuner:finetune:335 - eval_loss, eval_acc of training set of transfer learning (before): 5.303470611572266, 0.013175000436604023
+2022-05-06 23:40:50.143 | INFO     | finetuner:finetune:335 - eval_loss, eval_acc of training set of transfer learning (before): 5.553747177124023, 0.007224999833852053
+2022-05-06 23:40:50.257 | INFO     | finetuner:finetune:335 - eval_loss, eval_acc of training set of transfer learning (before): 5.6258978843688965, 0.006025000009685755
+2022-05-07 00:08:25.841 | INFO     | finetuner:finetune:348 - eval_loss, eval_acc of test set of transfer learning (after): 1.4497812986373901, 0.6514999866485596
+2022-05-07 00:08:40.522 | INFO     | finetuner:finetune:352 - eval_loss, eval_acc of validation set of transfer learning (after): 1.4024498462677002, 0.6546000242233276
+2022-05-07 00:08:42.685 | INFO     | finetuner:finetune:348 - eval_loss, eval_acc of test set of transfer learning (after): 1.3481265306472778, 0.6672000288963318
+2022-05-07 00:08:57.394 | INFO     | finetuner:finetune:352 - eval_loss, eval_acc of validation set of transfer learning (after): 1.3153396844863892, 0.6722000241279602
+2022-05-07 00:08:57.646 | INFO     | finetuner:finetune:348 - eval_loss, eval_acc of test set of transfer learning (after): 1.4057432413101196, 0.6571000218391418
+2022-05-07 00:09:04.198 | INFO     | finetuner:finetune:348 - eval_loss, eval_acc of test set of transfer learning (after): 1.366929531097412, 0.6633999943733215
+2022-05-07 00:09:13.142 | INFO     | finetuner:finetune:352 - eval_loss, eval_acc of validation set of transfer learning (after): 1.3601962327957153, 0.6664999723434448
+2022-05-07 00:09:19.858 | INFO     | finetuner:finetune:352 - eval_loss, eval_acc of validation set of transfer learning (after): 1.3282219171524048, 0.6704999804496765
+2022-05-07 00:09:46.719 | INFO     | finetuner:finetune:356 - eval_loss, eval_acc of training set of transfer learning (after): 0.7875749468803406, 0.765625
+2022-05-07 00:09:52.728 | INFO     | finetuner:finetune:375 - None
+2022-05-07 00:10:04.116 | INFO     | finetuner:finetune:356 - eval_loss, eval_acc of training set of transfer learning (after): 0.7118923664093018, 0.781374990940094
+2022-05-07 00:10:07.350 | INFO     | finetuner:finetune:388 - eval_loss, eval_acc of test set of finetune (before): 5.549003601074219, 0.004100000020116568
+2022-05-07 00:10:10.227 | INFO     | finetuner:finetune:375 - None
+2022-05-07 00:10:18.549 | INFO     | finetuner:finetune:356 - eval_loss, eval_acc of training set of transfer learning (after): 0.7600559592247009, 0.7717249989509583
+2022-05-07 00:10:20.749 | INFO     | finetuner:finetune:392 - eval_loss, eval_acc of validation set of finetune (before): 5.535096645355225, 0.0052999998442828655
+2022-05-07 00:10:24.139 | INFO     | finetuner:finetune:388 - eval_loss, eval_acc of test set of finetune (before): 5.512107849121094, 0.01080000028014183
+2022-05-07 00:10:25.100 | INFO     | finetuner:finetune:375 - None
+2022-05-07 00:10:25.713 | INFO     | finetuner:finetune:356 - eval_loss, eval_acc of training set of transfer learning (after): 0.7321135997772217, 0.7793750166893005
+2022-05-07 00:10:32.476 | INFO     | finetuner:finetune:375 - None
+2022-05-07 00:10:36.855 | INFO     | finetuner:finetune:392 - eval_loss, eval_acc of validation set of finetune (before): 5.541482448577881, 0.00989999994635582
+2022-05-07 00:10:38.965 | INFO     | finetuner:finetune:388 - eval_loss, eval_acc of test set of finetune (before): 5.40070104598999, 0.01080000028014183
+2022-05-07 00:10:47.741 | INFO     | finetuner:finetune:388 - eval_loss, eval_acc of test set of finetune (before): 5.693767547607422, 0.00800000037997961
+2022-05-07 00:10:53.266 | INFO     | finetuner:finetune:392 - eval_loss, eval_acc of validation set of finetune (before): 5.394636154174805, 0.010900000110268593
+2022-05-07 00:11:02.320 | INFO     | finetuner:finetune:392 - eval_loss, eval_acc of validation set of finetune (before): 5.701247692108154, 0.008100000210106373
+2022-05-07 00:11:22.209 | INFO     | finetuner:finetune:396 - eval_loss, eval_acc of training set of finetune (before): 5.537081241607666, 0.004000000189989805
+2022-05-07 00:11:39.975 | INFO     | finetuner:finetune:396 - eval_loss, eval_acc of training set of finetune (before): 5.504514217376709, 0.011749999597668648
+2022-05-07 00:11:54.421 | INFO     | finetuner:finetune:396 - eval_loss, eval_acc of training set of finetune (before): 5.406707763671875, 0.009650000371038914
+2022-05-07 00:15:08.484 | INFO     | finetuner:finetune:396 - eval_loss, eval_acc of training set of finetune (before): 5.674442291259766, 0.010099999606609344

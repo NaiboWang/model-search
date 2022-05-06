@@ -1,0 +1,48 @@
+625/625 [==============================] - 20s 26ms/step - loss: 5.4406 - accuracy: 0.0105
+eval_loss, eval_acc of test set of transfer learning (before): 5.440633296966553 0.010499999858438969
+7/7 [==============================] - 1s 50ms/step - loss: 5.4072 - accuracy: 0.0200
+eval_loss, eval_acc of validation set of transfer learning (before): 5.407167911529541 0.019999999552965164
+25/25 [==============================] - 1s 19ms/step - loss: 5.4994 - accuracy: 0.0050
+eval_loss, eval_acc of training set of transfer learning (before): 5.499367713928223 0.004999999888241291
+
+625/625 [==============================] - 10s 15ms/step - loss: 2.8927 - accuracy: 0.3013
+eval_loss, eval_acc of test set of transfer learning (after): 2.8927319049835205 0.3012999892234802
+7/7 [==============================] - 0s 16ms/step - loss: 2.8900 - accuracy: 0.3200
+eval_loss, eval_acc of validation set of transfer learning (after): 2.8900411128997803 0.3199999928474426
+25/25 [==============================] - 1s 19ms/step - loss: 0.1044 - accuracy: 1.0000
+eval_loss, eval_acc of training set of transfer learning (after): 0.10443077981472015 1.0
+
+
+
+625/625 [==============================] - 11s 17ms/step - loss: 5.6750 - accuracy: 0.0091
+eval_loss, eval_acc of test set of finetune (before): 5.675002574920654 0.009100000374019146
+7/7 [==============================] - 0s 17ms/step - loss: 5.6922 - accuracy: 0.0100
+eval_loss, eval_acc of validation set of finetune (before): 5.692221641540527 0.009999999776482582
+25/25 [==============================] - 1s 21ms/step - loss: 5.7426 - accuracy: 0.0050
+eval_loss, eval_acc of training set of finetune (before): 5.742590427398682 0.004999999888241291
+
+
+625/625 [==============================] - 10s 17ms/step - loss: 5.7866 - accuracy: 0.0641
+eval_loss, eval_acc of test set of finetune (after): 5.786618232727051 0.0640999972820282
+7/7 [==============================] - 0s 17ms/step - loss: 5.6614 - accuracy: 0.0800
+eval_loss, eval_acc of validation set of finetune (after): 5.6614460945129395 0.07999999821186066
+25/25 [==============================] - 1s 21ms/step - loss: 0.4245 - accuracy: 0.9000
+eval_loss, eval_acc of training set of finetune (after): 0.4244730770587921 0.8999999761581421
+
+
+2022-05-06 15:54:56.068 | INFO     | finetuner:finetune:327 - eval_loss, eval_acc of test set of transfer learning (before): 5.392693042755127, 0.006599999964237213
+2022-05-06 15:55:10.999 | INFO     | finetuner:finetune:331 - eval_loss, eval_acc of validation set of transfer learning (before): 5.385079860687256, 0.00800000037997961
+2022-05-06 15:56:00.261 | INFO     | finetuner:finetune:335 - eval_loss, eval_acc of training set of transfer learning (before): 5.378904819488525, 0.006500000134110451
+
+2022-05-06 16:28:24.314 | INFO     | finetuner:finetune:348 - eval_loss, eval_acc of test set of transfer learning (after): 1.4235583543777466, 0.6518999934196472
+2022-05-06 16:28:35.107 | INFO     | finetuner:finetune:352 - eval_loss, eval_acc of validation set of transfer learning (after): 1.3777395486831665, 0.6567000150680542
+2022-05-06 16:29:22.719 | INFO     | finetuner:finetune:356 - eval_loss, eval_acc of training set of transfer learning (after): 0.7742372155189514, 0.7664999961853027
+
+2022-05-06 16:29:28.761 | INFO     | finetuner:finetune:375 - None
+2022-05-06 16:29:40.506 | INFO     | finetuner:finetune:388 - eval_loss, eval_acc of test set of finetune (before): 5.443578720092773, 0.011800000444054604
+2022-05-06 16:29:51.606 | INFO     | finetuner:finetune:392 - eval_loss, eval_acc of validation set of finetune (before): 5.470775604248047, 0.010499999858438969
+2022-05-06 16:30:40.903 | INFO     | finetuner:finetune:396 - eval_loss, eval_acc of training set of finetune (before): 5.453145503997803, 0.010250000283122063
+
+2022-05-06 17:58:16.381 | INFO     | finetuner:finetune:408 - eval_loss, eval_acc of test set of finetune (after): 2.38249135017395, 0.6043000221252441
+2022-05-06 17:58:39.877 | INFO     | finetuner:finetune:412 - eval_loss, eval_acc of validation set of finetune (after): 2.3476006984710693, 0.6031000018119812
+2022-05-06 18:00:22.092 | INFO     | finetuner:finetune:416 - eval_loss, eval_acc of training set of finetune (after): 0.28948894143104553, 0.9104250073432922
