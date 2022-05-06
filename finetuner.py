@@ -218,9 +218,6 @@ class Finetuner:
             epochs: int = 20,
             batch_size: int = 16,
     ):
-        gpus = tf.config.experimental.list_physical_devices(device_type='GPU')
-        for gpu in gpus:
-            tf.config.experimental.set_memory_growth(gpu, True)
 
         AUTO = tf.data.AUTOTUNE
         # model = tf.keras.models.load_model(model_path)

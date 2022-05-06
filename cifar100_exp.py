@@ -21,5 +21,12 @@ if __name__ == '__main__':
     # print("Valid set size: ", len(valid_set))
     # print("Test set size: ", len(test_set))
     # print(ds_info.features["label"].num_classes)
-    finetuner = Finetuner()
-    finetuner.finetune(dataset="cifar100",epochs=20,batch_size=16,split=split)
+    strategy = tf.distribute.MirroredStrategy(
+        devices=["/physical_device:GPU:1", "/physical_device:GPU:2","/physical_device:GPU:3","/physical_device:GPU:4","/physical_device:GPU:5","/physical_device:GPU:6","/physical_device:GPU:7", ])
+    with strategy.scope():
+        gpus = tf.config.experimental.list_physical_devices(device_type='GPU')
+        print(gpus)
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+        finetuner = Finetuner()
+        finetuner.finetune(dataset="cifar100",epochs=20,batch_size=16,split=split)
