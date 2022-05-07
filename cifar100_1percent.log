@@ -724,3 +724,113 @@ array([[[255., 255., 255.],
 2022-05-07 02:05:42.446 | INFO     | finetuner:finetune:328 - eval_loss, eval_acc of validation set of transfer learning (before): 5.6364827156066895, 0.006500000134110451
 2022-05-07 02:05:51.251 | INFO     | finetuner:finetune:324 - eval_loss, eval_acc of test set of transfer learning (before): 5.479800701141357, 0.009399999864399433
 2022-05-07 02:06:33.591 | INFO     | finetuner:finetune:332 - eval_loss, eval_acc of training set of transfer learning (before): 5.635769367218018, 0.00712500000372529
+2022-05-07 20:23:34.024 | INFO     | finetuner:finetune:241 - Reshaping images to [224, 224]
+2022-05-07 20:23:35.355 | INFO     | finetuner:visualize_preprocessed_samples:158 - preprocessed_sample:(<tf.Tensor: shape=(224, 224, 3), dtype=float32, numpy=
+array([[[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       ...,
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]]], dtype=float32)>, <tf.Tensor: shape=(), dtype=int64, numpy=57>)
+2022-05-07 20:23:43.477 | INFO     | finetuner:finetune:241 - Reshaping images to [224, 224]
+2022-05-07 20:23:44.767 | INFO     | finetuner:visualize_preprocessed_samples:158 - preprocessed_sample:(<tf.Tensor: shape=(224, 224, 3), dtype=float32, numpy=
+array([[[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.]],
+
+       ...,
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]],
+
+       [[255., 255., 255.],
+        [255., 255., 255.],
+        [255., 255., 255.],
+        ...,
+        [255., 255., 253.],
+        [255., 255., 253.],
+        [255., 255., 253.]]], dtype=float32)>, <tf.Tensor: shape=(), dtype=int64, numpy=57>)
+2022-05-07 20:23:53.767 | INFO     | finetuner:finetune:320 - None
+2022-05-07 20:23:54.025 | INFO     | finetuner:finetune:320 - None
+2022-05-07 20:24:12.887 | INFO     | finetuner:finetune:334 - eval_loss, eval_acc of test set of transfer learning (before): 5.488429069519043, 0.01549999974668026
+2022-05-07 20:24:13.487 | INFO     | finetuner:finetune:334 - eval_loss, eval_acc of test set of transfer learning (before): 5.488429069519043, 0.01549999974668026
+2022-05-07 20:24:29.110 | INFO     | finetuner:finetune:338 - eval_loss, eval_acc of validation set of transfer learning (before): 5.495649337768555, 0.014800000004470348
+2022-05-07 20:24:29.599 | INFO     | finetuner:finetune:338 - eval_loss, eval_acc of validation set of transfer learning (before): 5.495649337768555, 0.014800000004470348
+2022-05-07 20:25:38.688 | INFO     | finetuner:finetune:342 - eval_loss, eval_acc of training set of transfer learning (before): 5.490853309631348, 0.015575000084936619
+2022-05-07 20:25:40.179 | INFO     | finetuner:finetune:342 - eval_loss, eval_acc of training set of transfer learning (before): 5.490853309631348, 0.015575000084936619

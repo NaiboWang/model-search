@@ -1,4 +1,5 @@
 import os
+import random
 from typing import List
 
 import tensorflow as tf
@@ -115,6 +116,15 @@ label_dict = dict({
     99: "worm",
 })
 logger.add("cifar100_1percent.log")
+
+##TODO 参数化配置，mongodb的config表 分配好每个模型的gpuid以及是否已经finetune等
+##TODO 保存transfer learning和finetune模型到不同的文件夹
+##TODO 统计训练和测试时间（各个训练集）开始时间 结束时间等
+##TODO 保存中间结果输出
+##TODO 保存模型结构，模型各个轮的loss和acc
+##TODO 测试early stopping和random seed
+##TODO 统计每个模型的大小以及P100是否撑得住，图片显示是否正常；模型的原始数据集是什么，原始要求格式，原始的训练和测试准确率
+##TODO WEBSITE 可视化每次的实验结果
 
 def visualize_samples(ds):
     f, plots = plt.subplots(3, 3, figsize=(10, 10))

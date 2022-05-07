@@ -1,13 +1,28 @@
+import random
+
 import tensorflow as tf
 import tensorflow_datasets as tfds
-
+import numpy as np
+import os
 from finetuner import Finetuner
+
 """
 1. 一个GPU可以同时跑多个程序/模型，且互相不影响（实验结果仍然一致），只要有显存
 2. 可以使用MirroredStrategy使模型在多个GPU上同时跑，同时可以开多程序
 3. 使用set_visible_devices来指定GPU
 """
+
+
+def setup_seed(seed):
+    random.seed(seed)  # 为python设置随机种子
+    np.random.seed(seed)  # 为numpy设置随机种子
+    tf.random.set_seed(seed)  # tf cpu fix seed
+    os.environ['TF_DETERMINISTIC_OPS'] = '1'  # tf gpu fix seed, please `pip install tensorflow-determinism` first
+
+
+
 if __name__ == '__main__':
+    setup_seed(42) # 设置随机数种子
     # import os
     # print(os.environ)
     # Save class_names and n_classes for later
