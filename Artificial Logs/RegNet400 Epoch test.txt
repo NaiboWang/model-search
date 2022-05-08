@@ -65,7 +65,9 @@ Epoch 27/100 2500/2500 [==============================] - 25s 10ms/step - loss: 
  - val_accuracy: 0.6580                                                                    
 Epoch 28/100 2500/2500 [==============================] - 25s 10ms/step - loss: 0.6976 - accuracy: 0.8005 - val_loss: 1.4435 - val_accuracy: 0.6575                                   
 Epoch 29/100 2500/2500 [==============================] - 26s 10ms/step - loss: 0.6909 - accuracy: 0.8027 - val_loss: 1.4496
- - val_accuracy: 0.6580Epoch 30/100 2500/2500 [==============================] - 26s 10ms/step - loss: 0.6844 - accuracy: 0.8046 - val_loss: 1.4560 - val_accuracy: 0.6582Epoch 31/100 2500/2500 [==============================] - 26s 10ms/step - loss: 0.6782 - accuracy: 0.8063 - val_loss: 1.4622
+ - val_accuracy: 0.6580
+Epoch 30/100 2500/2500 [==============================] - 26s 10ms/step - loss: 0.6844 - accuracy: 0.8046 - val_loss: 1.4560 - val_accuracy: 0.6582
+Epoch 31/100 2500/2500 [==============================] - 26s 10ms/step - loss: 0.6782 - accuracy: 0.8063 - val_loss: 1.4622
  - val_accuracy: 0.6578
 Epoch 32/100 2500/2500 [==============================] - 25s 10ms/step - loss: 0.6723 - accuracy: 0.8078 - val_loss: 1.4685 - val_accuracy: 0.6581
 Epoch 33/100 2500/2500 [==============================] - 25s 10ms/step - loss: 0.6665 - accuracy: 0.8092 - val_loss: 1.4749

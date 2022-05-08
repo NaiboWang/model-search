@@ -1,10 +1,14 @@
+import datetime
 from typing import Callable, Tuple
 
 import numpy as np
 import tensorflow as tf
+from functools import reduce
 # import torch as pt
 # import torchvision.transforms as transforms
 from PIL.Image import Image
+
+
 # from pipeline.model import PreprocessingSpecs
 # from schemas.models.image_model import ImageSize
 # from torchvision.transforms.functional import center_crop
@@ -55,13 +59,30 @@ from PIL.Image import Image
 #     def __call__(self, image: pt.Tensor):
 #         return image.permute(1, 2, 0)
 
+class TimeRecord:
+    def __init__(self):
+        self.logs = []
+
+    def start(self, key):
+        time_start = datetime.datetime.now()
+        # datetime.strptime(time_start, '%Y-%m-%d %H:%M:%S.%f')
+        self.logs.append({"name": key,"start": time_start, "end": ""})
+        return time_start.strftime('%Y_%m_%d_%H_%M_%S_%f')
+
+    def end(self,key):
+        time_dict = reduce(lambda pre, cur: cur if cur['name'] == key else pre, self.logs, None)
+        time_end = datetime.datetime.now()
+        time_dict["end"] = time_end
+
+    def get_logs(self):
+        return self.logs
 
 class _TFImageHelper:
     """Contains methods for manipulating images with TensorFlow."""
 
     @staticmethod
     def central_crop_with_resize_to_float(
-        feature: tf.Tensor, required_image_size: Tuple[int, int]
+            feature: tf.Tensor, required_image_size: Tuple[int, int], normalize=True
     ) -> tf.Tensor:
         converted_img = tf.image.convert_image_dtype(
             feature, dtype=tf.float32, saturate=False
@@ -75,12 +96,13 @@ class _TFImageHelper:
         # (9条消息) 【Tensorflow】tf.image.resize_image_with_crop_or_pad_AI小白龙的博客-CSDN博客_resize_with_crop_or_pad
         # https://blog.csdn.net/qq_34106574/article/details/82663692
         cropped_img = tf.image.resize_with_crop_or_pad(converted_img, min_dim, min_dim)
-        cropped_img = int(cropped_img * 255)
+        if not normalize: # 如果不正则化，还原图片像素到0-255之间
+            cropped_img = int(cropped_img * 255)
         return tf.image.resize(cropped_img, required_image_size)
 
     @staticmethod
     def central_crop_with_resize(
-        feature: tf.Tensor, required_image_size: Tuple[int, int]
+            feature: tf.Tensor, required_image_size: Tuple[int, int]
     ) -> tf.Tensor:
         converted_img = tf.image.convert_image_dtype(
             feature, dtype=tf.float32, saturate=False
@@ -92,17 +114,17 @@ class _TFImageHelper:
 
     @staticmethod
     def central_crop_with_resize_3_channels(
-        feature: tf.Tensor, required_image_size: Tuple[int, int]
+            feature: tf.Tensor, required_image_size: Tuple[int, int], normalize=True
     ) -> tf.Tensor:
         resized_img = _TFImageHelper.central_crop_with_resize_to_float(
-            feature, required_image_size
+            feature, required_image_size,normalize=normalize,
         )
         # For 1 channel, repeats 3 times; for 3 channels, repeats 1 time
         return tf.repeat(resized_img, 3 - tf.shape(resized_img)[2] + 1, axis=2)
 
     @staticmethod
     def central_crop_with_resize_3_channels_normalized(
-        feature: tf.Tensor, required_image_size: Tuple[int, int]
+            feature: tf.Tensor, required_image_size: Tuple[int, int]
     ):
         intermediate = _TFImageHelper.central_crop_with_resize_3_channels(
             feature, required_image_size
@@ -117,14 +139,13 @@ class _TFImageHelper:
 
     @staticmethod
     def raw_image_with_central_crop_and_resize(
-        feature: tf.Tensor, required_image_size: Tuple[int, int]
+            feature: tf.Tensor, required_image_size: Tuple[int, int]
     ) -> tf.Tensor:
         resized_img = _TFImageHelper.central_crop_with_resize(
             feature, required_image_size
         )
         # Must be a tuple!
         return tf.reshape(resized_img, (-1,))
-
 
 # class ImageCropResizeFlatten(PreprocessingSpecs):
 #     """Performs a central crop, a resize and flattening. All images are transformed into vectors of the same length, since after crop and resize operations all images are of same size.
