@@ -82,6 +82,14 @@ class Config(dict):
         print(output)
         return ""
 
+    def get_config(self):
+        output = {}
+        for key in self.preset_config:
+            if key == "_id": # 防止mongodb的ObjectID键冲突
+                continue
+            output[key] = self[key]
+        return output
+
     def __getattr__(self, name):
         try:
             return self[name]

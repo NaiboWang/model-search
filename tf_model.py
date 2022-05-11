@@ -84,8 +84,8 @@ class TF_Model:
 
         # 可视化原始数据集
         if display_image:
-            self.visualize_samples(ds_train)
-            self.visualize_samples(ds_validation)
+            # self.visualize_samples(ds_train)
+            # self.visualize_samples(ds_validation)
             self.visualize_samples(ds_test)
 
         ds_train = ds_train.map(
@@ -116,8 +116,8 @@ class TF_Model:
         # 可视化处理后的数据集
         if display_image:
             self.visualize_preprocessed_samples(ds_train)
-            self.visualize_preprocessed_samples(ds_validation)
-            self.visualize_preprocessed_samples(ds_test)
+            # self.visualize_preprocessed_samples(ds_validation)
+            # self.visualize_preprocessed_samples(ds_test)
 
         # shuffle是有效果的，但之所以每次测试的training set的分布都一样是因为之前设置了随机数种子的固定！
         # 一次shuffle后training set就打乱一次，不再变化了
@@ -127,36 +127,68 @@ class TF_Model:
         self.ds_validation = ds_validation.batch(batch_size).prefetch(buffer_size=tf.data.experimental.AUTOTUNE).cache()
         self.ds_test = ds_test.batch(batch_size).prefetch(buffer_size=tf.data.experimental.AUTOTUNE).cache()
 
+        self.check_feature_vector_shape()
+        return self.ds_train, self.ds_validation, self.ds_test
         # for batch in self.ds_train:
         #     print(batch[0].shape) # print input shape
         #     break
+
+    # 根据feature vector最后的输出是四维还是两维来决定是否添加GlobalAveragePooling2D层
+    def check_feature_vector_shape(self):
+        x = tf.keras.Sequential(
+            [
+                tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
+                hub.KerasLayer(self.pretrained_model_path),
+            ]
+        )
+        x.build(input_shape=(None, self.image_size, self.image_size, 3))
+        x.compile()
+        for batch_samples in self.ds_test:
+            shape = x.predict(batch_samples[0]).shape
+            logger.info("Shape of the output of original feature vector: {}".format(shape))
+            break
+        self.GlobalAveragePooling2D = len(shape) == 4
+
 
     def transfer_learning(self,
                           learning_rate: float = 0.01,
                           epochs: int = 20):
         csv_logger = CSVLogger(self.storage_path + "/transfer-learning/training_log.csv", append=True, separator=',')
+
         # build the transfer learning model
-        m = tf.keras.Sequential(
-            [
-                tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
-                hub.KerasLayer(self.pretrained_model_path, trainable=False),
-                tf.keras.layers.GlobalAveragePooling2D(),
-                tf.keras.layers.Dense(
-                    self.num_classes,
-                    activation="softmax",
-                    kernel_regularizer=tf.keras.regularizers.l2(0.0),
-                ),
-            ]
-        )
+        if self.GlobalAveragePooling2D:
+            m = tf.keras.Sequential(
+                [
+                    tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
+                    hub.KerasLayer(self.pretrained_model_path, trainable=False),
+                    tf.keras.layers.GlobalAveragePooling2D(),
+                    tf.keras.layers.Dense(
+                        self.num_classes,
+                        activation="softmax",
+                        kernel_regularizer=tf.keras.regularizers.l2(0.0),
+                    ),
+                ]
+            )
+        else:
+            m = tf.keras.Sequential(
+                [
+                    tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
+                    hub.KerasLayer(self.pretrained_model_path, trainable=False),
+                    tf.keras.layers.Dense(
+                        self.num_classes,
+                        activation="softmax",
+                        kernel_regularizer=tf.keras.regularizers.l2(0.0),
+                    ),
+                ]
+            )
         m.build(input_shape=(None, self.image_size, self.image_size, 3))
-        # base_model = tf.keras.models.load_model(self.pretrained_model_path)
-        # base_model.trainable = False
+
         # # for layer in base_model.layers:
         # #     layer.trainable = True if isinstance(layer, tf.keras.layers.BatchNormalization) else False
         # # build the fine-tune model
         # # inputs = tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3))
-        # inputs = tf.keras.Input(shape=(self.image_size, self.image_size, 3))
-        # x = base_model(inputs, training=False)  # 这里的training只能设置为true
+        #
+        #
         # x = tf.keras.layers.GlobalAveragePooling2D()(x)
         # outputs = tf.keras.layers.Dense(
         #     self.num_classes,
@@ -262,26 +294,39 @@ class TF_Model:
         # )(x)
         # m = tf.keras.Model(inputs, outputs)
         # base_model = hub.KerasLayer(self.pretrained_model_path, trainable=True),
-        m = tf.keras.Sequential(
-            [
-                tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
-                # base_model,
-                # tf.keras.models.load_model(self.pretrained_model_path), # 效果与hub.KerasLayer相同，包括trainable=True的配置结果也是一样的
-                hub.KerasLayer(self.pretrained_model_path, trainable=True),
-                tf.keras.layers.GlobalAveragePooling2D(),
-                tf.keras.layers.Dense(
-                    self.num_classes,
-                    activation="softmax",
-                    kernel_regularizer=tf.keras.regularizers.l2(0.0),
-                ),
-            ]
-        )
+        if self.GlobalAveragePooling2D:
+            m = tf.keras.Sequential(
+                [
+                    tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
+                    # base_model,
+                    # tf.keras.models.load_model(self.pretrained_model_path), # 效果与hub.KerasLayer相同，包括trainable=True的配置结果也是一样的
+                    hub.KerasLayer(self.pretrained_model_path, trainable=True),
+                    tf.keras.layers.GlobalAveragePooling2D(),
+                    tf.keras.layers.Dense(
+                        self.num_classes,
+                        activation="softmax",
+                        kernel_regularizer=tf.keras.regularizers.l2(0.0),
+                    ),
+                ]
+            )
+        else:
+            m = tf.keras.Sequential(
+                [
+                    tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
+                    hub.KerasLayer(self.pretrained_model_path, trainable=True),
+                    tf.keras.layers.Dense(
+                        self.num_classes,
+                        activation="softmax",
+                        kernel_regularizer=tf.keras.regularizers.l2(0.0),
+                    ),
+                ]
+            )
         m.build(input_shape=(None, self.image_size, self.image_size, 3))
 
         with open(os.path.join(self.storage_path, 'fine-tune/model_summary.txt'), 'w') as fh:
             # Pass the file handle in as a lambda function to make it callable
             m.summary(print_fn=lambda x: fh.write(x + '\n'))
-        print(m.summary())
+        m.summary()
         m.compile(
             optimizer=tf.keras.optimizers.SGD(
                 learning_rate=learning_rate, momentum=0.9, nesterov=True
@@ -403,19 +448,19 @@ class TF_Model:
                 results = test_model.predict(batch_samples[0])
                 predictions = np.argmax(results, axis=1)  # the prediction labels
                 print(predictions, batch_samples[1])
-                self.visualize_test_samples(batch_samples, predictions)
+                self.visualize_test_samples(batch_samples, predictions, fig_title="test")
                 break
             for batch_samples in self.ds_validation:
                 results = test_model.predict(batch_samples[0])
                 predictions = np.argmax(results, axis=1)  # the prediction labels
                 print(predictions, batch_samples[1])
-                self.visualize_test_samples(batch_samples, predictions)
+                self.visualize_test_samples(batch_samples, predictions, fig_title="validation")
                 break
             for batch_samples in self.ds_train:
                 results = test_model.predict(batch_samples[0])
                 predictions = np.argmax(results, axis=1)  # the prediction labels
                 print(predictions, batch_samples[1])
-                self.visualize_test_samples(batch_samples, predictions)
+                self.visualize_test_samples(batch_samples, predictions, fig_title="train")
                 break
         return test_model
 
@@ -488,7 +533,10 @@ class TF_Model:
                 logger.info("preprocessed_sample:{}".format(sample))
                 break
             # imshow显示浮点数的时候，只支持0～1之间的浮点数显示，超过1就认为是白色，所以在没有对值域做rescale的时候，中间的浮点数Mat显示只能是白色
-            images.append(sample[0] / 255.0)  # 从0-1还原成0-255
+            if sample[0][0][0][0].numpy() > 2: # 如果是0-255之间的数字，则压缩到0-1, sample是个四维数组
+                images.append(sample[0] / 255.0)  # 从0-1还原成0-255
+            else:
+                images.append(sample[0])
             # images.append(sample[0])
             labels.append(self.label_names[sample[1].numpy()])
 
@@ -500,7 +548,7 @@ class TF_Model:
 
         plt.show()
 
-    def visualize_test_samples(self, batch_samples, predictions):
+    def visualize_test_samples(self, batch_samples, predictions, fig_title):
         f, plots = plt.subplots(3, 3, figsize=(10, 10))
 
         images = []
@@ -511,7 +559,10 @@ class TF_Model:
             pred = predictions[i]
             if i > 9:
                 break
-            images.append(sample / 255.0)  # 从0-1还原成0-255
+            if sample[0][0][0].numpy() > 2:  # 如果是0-255之间的数字，则压缩到0-1, sample是个四维数组
+                images.append(sample / 255.0)  # 从0-1还原成0-255
+            else:
+                images.append(sample)
             labels.append(self.label_names[label.numpy()] + "-" + self.label_names[pred])
 
         for i in range(3):
@@ -519,5 +570,5 @@ class TF_Model:
                 plots[i, j].imshow(images[i * 3 + j])
                 plots[i, j].set_title(labels[i * 3 + j])
                 plots[i, j].axis('off')
-
+        f.suptitle(fig_title, fontsize=16)
         plt.show()
