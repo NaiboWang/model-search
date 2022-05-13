@@ -22,6 +22,7 @@ import getopt
 1. A deterministic GPU implementation of DepthwiseConvBackpropFilter is not currently available.
 Random Seed设置时对mobilenet出现，os.environ['TF_DETERMINISTIC_OPS'] = '1' 因为设置了这个导致的问题
 注释掉这行，transfer learning的结果仍然每次都相同，但是fine tune的结果并不是
+2. Transfer learning和Fine tune所需的GPU显存是不同的，参数越多，需要显存越多
 """
 
 
@@ -51,7 +52,7 @@ if __name__ == '__main__':
         "batch_size": 16,
         "epochs": 10,
         "GPUTYPE":0,
-        "GPUID": 4,
+        "GPUID": 3,
         "pretrained_model_path": os.path.join("/home/naibo/xacc_share/models/tf-dev/feature-extractor/",
                                               "regnety200mf_feature_extractor_1"),
         "storage_path": "/home/naibo/xacc_share/trained_models/",
@@ -111,3 +112,4 @@ if __name__ == '__main__':
     # 保存文件
     with open(output_info["model_storage_path"] + "/output_info.json", "w") as f:
         json.dump(output_info, f)
+    print("Done with ", c.model_name)
