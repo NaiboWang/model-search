@@ -52,7 +52,7 @@ if __name__ == '__main__':
         "batch_size": 16,
         "epochs": 10,
         "GPUTYPE":0,
-        "GPUID": 3,
+        "GPUID": 2,
         "pretrained_model_path": os.path.join("/home/naibo/xacc_share/models/tf-dev/feature-extractor/",
                                               "regnety200mf_feature_extractor_1"),
         "storage_path": "/home/naibo/xacc_share/trained_models/",
