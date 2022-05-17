@@ -84,7 +84,10 @@ if __name__ == '__main__':
 
         output_info["status"] = "done"
         # 插入数据库
-        results.insert_one(output_info.copy())
+        try:
+            results.insert_one(output_info.copy())
+        except:
+            pass
         for t in output_info["time_records"]:
             t["start"] = t["start"].strftime('%Y-%m-%d %H:%M:%S.%f')
             t["end"] = t["end"].strftime('%Y-%m-%d %H:%M:%S.%f')
