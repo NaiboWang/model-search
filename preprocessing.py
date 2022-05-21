@@ -58,6 +58,13 @@ from PIL.Image import Image
 #
 #     def __call__(self, image: pt.Tensor):
 #         return image.permute(1, 2, 0)
+def normalize_image(image):
+    image = image.numpy()
+    mean = np.mean(image)
+    var = np.mean(np.square(image-mean))
+    image = (image - mean)/np.sqrt(var)
+    return image
+
 
 class TimeRecord:
     def __init__(self):
@@ -82,7 +89,7 @@ class _TFImageHelper:
 
     @staticmethod
     def central_crop_with_resize_to_float(
-            feature: tf.Tensor, required_image_size: Tuple[int, int], normalize=True
+            feature: tf.Tensor, required_image_size: Tuple[int, int], normalize=1
     ) -> tf.Tensor:
         converted_img = tf.image.convert_image_dtype(
             feature, dtype=tf.float32, saturate=False
@@ -96,8 +103,15 @@ class _TFImageHelper:
         # (9条消息) 【Tensorflow】tf.image.resize_image_with_crop_or_pad_AI小白龙的博客-CSDN博客_resize_with_crop_or_pad
         # https://blog.csdn.net/qq_34106574/article/details/82663692
         cropped_img = tf.image.resize_with_crop_or_pad(converted_img, min_dim, min_dim)
-        if not normalize: # 如果不正则化，还原图片像素到0-255之间
+        if normalize == 0: # 如果不正则化，还原图片像素到0-255之间
             cropped_img = int(cropped_img * 255)
+        elif normalize == 2: # [-1,1]
+            # cropped_img = cropped_img * 255
+            # cropped_img = cropped_img - 128
+            # cropped_img = cropped_img/128.0
+            cropped_img = cropped_img * 2.0
+            cropped_img = cropped_img - 1.0
+
         return tf.image.resize(cropped_img, required_image_size)
 
     @staticmethod
@@ -114,11 +128,12 @@ class _TFImageHelper:
 
     @staticmethod
     def central_crop_with_resize_3_channels(
-            feature: tf.Tensor, required_image_size: Tuple[int, int], normalize=True
+            feature: tf.Tensor, required_image_size: Tuple[int, int], normalize=1
     ) -> tf.Tensor:
         resized_img = _TFImageHelper.central_crop_with_resize_to_float(
             feature, required_image_size,normalize=normalize,
         )
+
         # For 1 channel, repeats 3 times; for 3 channels, repeats 1 time
         return tf.repeat(resized_img, 3 - tf.shape(resized_img)[2] + 1, axis=2)
 

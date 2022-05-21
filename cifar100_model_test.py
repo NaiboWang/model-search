@@ -56,7 +56,7 @@ if __name__ == '__main__':
         "pretrained_model_path": os.path.join("/home/naibo/xacc_share/models/tf-dev/feature-extractor/",
                                               "regnety200mf_feature_extractor_1"),
         "storage_path": "/home/naibo/xacc_share/trained_models/",
-        "normalize": False,
+        "normalize": 0,
         "display_image": True,
         "random_seed": 2022,
         "learning_rate": 0.01,

@@ -65,7 +65,7 @@ class TF_Model:
     def preprocess_dataset(self,
                            required_image_size: List = [224, 224],
                            batch_size: int = 16,
-                           normalize: bool = True,  # False: 保持图片原样（0-255） True:图片像素压缩到0-1
+                           normalize: int = 1,  # False: 保持图片原样（0-255） True:图片像素压缩到0-1
                            display_image: bool = False,  # 是否展示图片（处理前和处理后）
                            ):
         AUTO = tf.data.AUTOTUNE
@@ -135,13 +135,22 @@ class TF_Model:
 
     # 根据feature vector最后的输出是四维还是两维来决定是否添加GlobalAveragePooling2D层
     def check_feature_vector_shape(self):
-        x = tf.keras.Sequential(
-            [
-                tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
-                hub.KerasLayer(self.pretrained_model_path),
-            ]
-        )
-        x.build(input_shape=(None, self.image_size, self.image_size, 3))
+        try:
+            x = tf.keras.Sequential(
+                [
+                    tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
+                    hub.KerasLayer(self.pretrained_model_path),
+                ]
+            )
+            x.build(input_shape=(None, self.image_size, self.image_size, 3))
+        except ValueError as v: # 如果sequential因为output shape的问题不能使用，则使用另一种做法
+            logger.info("Change to another way to test the feature vector shape")
+            inputs = tf.keras.Input((self.image_size, self.image_size, 3))
+            hub_module = hub.KerasLayer(self.pretrained_model_path)
+
+            x, _ = hub_module(inputs)  # Second output in the tuple is a dictionary containing attention scores.
+            x = tf.keras.Model(inputs, x)
+
         x.compile()
         for batch_samples in self.ds_test:
             shape = x.predict(batch_samples[0]).shape
@@ -155,33 +164,45 @@ class TF_Model:
                           epochs: int = 20):
         csv_logger = CSVLogger(self.storage_path + "/transfer-learning/training_log.csv", append=True, separator=',')
 
-        # build the transfer learning model
-        if self.GlobalAveragePooling2D:
-            m = tf.keras.Sequential(
-                [
-                    tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
-                    hub.KerasLayer(self.pretrained_model_path, trainable=False),
-                    tf.keras.layers.GlobalAveragePooling2D(),
-                    tf.keras.layers.Dense(
-                        self.num_classes,
-                        activation="softmax",
-                        kernel_regularizer=tf.keras.regularizers.l2(0.0),
-                    ),
-                ]
-            )
-        else:
-            m = tf.keras.Sequential(
-                [
-                    tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
-                    hub.KerasLayer(self.pretrained_model_path, trainable=False),
-                    tf.keras.layers.Dense(
-                        self.num_classes,
-                        activation="softmax",
-                        kernel_regularizer=tf.keras.regularizers.l2(0.0),
-                    ),
-                ]
-            )
-        m.build(input_shape=(None, self.image_size, self.image_size, 3))
+        try:
+            # build the transfer learning model
+            if self.GlobalAveragePooling2D:
+                m = tf.keras.Sequential(
+                    [
+                        tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
+                        hub.KerasLayer(self.pretrained_model_path, trainable=False),
+                        tf.keras.layers.GlobalAveragePooling2D(),
+                        tf.keras.layers.Dense(
+                            self.num_classes,
+                            activation="softmax",
+                            kernel_regularizer=tf.keras.regularizers.l2(0.0),
+                        ),
+                    ]
+                )
+            else:
+                m = tf.keras.Sequential(
+                    [
+                        tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
+                        hub.KerasLayer(self.pretrained_model_path, trainable=False),
+                        tf.keras.layers.Dense(
+                            self.num_classes,
+                            activation="softmax",
+                            kernel_regularizer=tf.keras.regularizers.l2(0.0),
+                        ),
+                    ]
+                )
+            m.build(input_shape=(None, self.image_size, self.image_size, 3))
+        except ValueError as v:
+            logger.info("Change to another way to construct the model")
+            inputs = tf.keras.Input((self.image_size, self.image_size, 3))
+            hub_module = hub.KerasLayer(self.pretrained_model_path, trainable=False)
+            x, _ = hub_module(inputs)  # Second output in the tuple is a dictionary containing attention scores.
+            outputs = tf.keras.layers.Dense(
+                            self.num_classes,
+                            activation="softmax",
+                            kernel_regularizer=tf.keras.regularizers.l2(0.0),
+                        )(x)
+            m = tf.keras.Model(inputs, outputs)
 
         # # for layer in base_model.layers:
         # #     layer.trainable = True if isinstance(layer, tf.keras.layers.BatchNormalization) else False
@@ -294,34 +315,47 @@ class TF_Model:
         # )(x)
         # m = tf.keras.Model(inputs, outputs)
         # base_model = hub.KerasLayer(self.pretrained_model_path, trainable=True),
-        if self.GlobalAveragePooling2D:
-            m = tf.keras.Sequential(
-                [
-                    tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
-                    # base_model,
-                    # tf.keras.models.load_model(self.pretrained_model_path), # 效果与hub.KerasLayer相同，包括trainable=True的配置结果也是一样的
-                    hub.KerasLayer(self.pretrained_model_path, trainable=True),
-                    tf.keras.layers.GlobalAveragePooling2D(),
-                    tf.keras.layers.Dense(
-                        self.num_classes,
-                        activation="softmax",
-                        kernel_regularizer=tf.keras.regularizers.l2(0.0),
-                    ),
-                ]
-            )
-        else:
-            m = tf.keras.Sequential(
-                [
-                    tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
-                    hub.KerasLayer(self.pretrained_model_path, trainable=True),
-                    tf.keras.layers.Dense(
-                        self.num_classes,
-                        activation="softmax",
-                        kernel_regularizer=tf.keras.regularizers.l2(0.0),
-                    ),
-                ]
-            )
-        m.build(input_shape=(None, self.image_size, self.image_size, 3))
+
+        try:
+            if self.GlobalAveragePooling2D:
+                m = tf.keras.Sequential(
+                    [
+                        tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
+                        # base_model,
+                        # tf.keras.models.load_model(self.pretrained_model_path), # 效果与hub.KerasLayer相同，包括trainable=True的配置结果也是一样的
+                        hub.KerasLayer(self.pretrained_model_path, trainable=True),
+                        tf.keras.layers.GlobalAveragePooling2D(),
+                        tf.keras.layers.Dense(
+                            self.num_classes,
+                            activation="softmax",
+                            kernel_regularizer=tf.keras.regularizers.l2(0.0),
+                        ),
+                    ]
+                )
+            else:
+                m = tf.keras.Sequential(
+                    [
+                        tf.keras.layers.InputLayer(input_shape=(self.image_size, self.image_size, 3)),
+                        hub.KerasLayer(self.pretrained_model_path, trainable=True),
+                        tf.keras.layers.Dense(
+                            self.num_classes,
+                            activation="softmax",
+                            kernel_regularizer=tf.keras.regularizers.l2(0.0),
+                        ),
+                    ]
+                )
+            m.build(input_shape=(None, self.image_size, self.image_size, 3))
+        except ValueError as v:
+            logger.info("Change to another way to construct the model")
+            inputs = tf.keras.Input((self.image_size, self.image_size, 3))
+            hub_module = hub.KerasLayer(self.pretrained_model_path, trainable=True)
+            x, _ = hub_module(inputs)  # Second output in the tuple is a dictionary containing attention scores.
+            outputs = tf.keras.layers.Dense(
+                            self.num_classes,
+                            activation="softmax",
+                            kernel_regularizer=tf.keras.regularizers.l2(0.0),
+                        )(x)
+            m = tf.keras.Model(inputs, outputs)
 
         with open(os.path.join(self.storage_path, 'fine-tune/model_summary.txt'), 'w') as fh:
             # Pass the file handle in as a lambda function to make it callable
