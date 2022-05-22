@@ -68,8 +68,8 @@ if __name__ == '__main__':
     c = Config(latest_config)
     c.set_command_line(sys.argv[1:])
     c.pretrained_model_path = "/home/naibo/xacc_share/models/tf-dev/feature-extractor/" + c.pretrained_model_path
+    c.epochs = 10
     print(c)
-
 
     setup_seed(c.random_seed)  # 设置随机数种子
     gpus = tf.config.experimental.list_physical_devices(device_type='GPU')
