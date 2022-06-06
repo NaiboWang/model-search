@@ -94,5 +94,5 @@ if __name__ == '__main__':
     for i in range(len(rank_test_fine_tune)):
         rank.append(i + 1)
     rank_test_fine_tune["rank"] = rank
-    rank_test_fine_tune.to_csv("result_format.csv",index=False)
+    rank_test_fine_tune.to_csv("result_format.csv", index=False)
 
